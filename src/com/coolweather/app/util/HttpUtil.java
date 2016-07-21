@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import android.util.Log;
+
 public class HttpUtil {
 	public static void sendHttpRequest(final String address,final HttpCallbackListener listener){
 		new Thread(new Runnable() {
@@ -14,9 +16,13 @@ public class HttpUtil {
 			public void run() {
 				HttpURLConnection connection = null;
 				try {
+					Log.d("HttpUtil","tehttp");
 					URL url = new URL(address);
 					connection = (HttpURLConnection) url.openConnection();
 					connection.setRequestMethod("GET");
+					connection.addRequestProperty("Accept-Language", "zh-CN,zh;q=0.8");
+		            connection.addRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
+				
 					connection.setConnectTimeout(8000);
 					connection.setReadTimeout(8000);
 					InputStream in = connection.getInputStream();
